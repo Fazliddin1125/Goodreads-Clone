@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}List Book{% endblock title %}
+<link href="{% static 'css/main.css' %}" type="text/css" rel="stylesheet" >
+{% block content %}
+
+<div class="row">
+
+    <h1 class="ms-4" >Books</h1>
+</div>
+<div class="row ms-4 mb-3">
+    <div class="col-4">
+        <form class="d-flex" method="get">
+            <input type="text"  class="form-control  me-2" placeholder="Search" value="{{search_query}}" name="q">
+            <button type="submit" class="btn btn-primary" >Search</button>
+        </form>
+    </div>
+</div>
+
+{% for book in page_obj.object_list %}
+<div id="list" class="row list_book mb-3  ms-4 ">
+    <div class="col-2  ">
+        <img  class="w-100  list_pic" src="{{ book.cover_picture.url }}" alt="book picture">
+    </div>
+    <div class="col-6">
+    <a class="text-dark fs-3" href="{% url 'detail' book.id %}">{{ book.title }}</a>
+    <p>
+        {{ book.description }}
+    </p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+<nav class="ms-4" >
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class=" mx-1 btn btn-primary" ><a style="text-decoration: none;" class="text-white" href="?page=1" >&laquo; first</a></li>
+            <li class=" mx-1 btn btn-primary " > <a style="text-decoration: none;" class="text-white" href="?page={{ page_obj.previous_page_number }}">previous</a> </li>
+        {% endif %}
+
+        <li class=" btn btn-secondary">
+            <a style="text-decoration: none;" href="#"  class="text-white mx-1">{{ page_obj.number }}</a>
+        </li>
+
+         {% if page_obj.has_next %}
+            <li  class=" mx-1 btn btn-primary" ><a style="text-decoration: none;" class="text-white" href="?page={{ page_obj.next_page_number }}" > next</a></li>
+            <li class=" mx-1 btn btn-primary" > <a style="text-decoration: none;" class="text-white" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a> </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<h1>All reviews</h1>
+{% for review in page_obj %}
+
+<div class="row my-2 ">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <img id="nav-prof-img" src="{{ review.user.profile_picture.url }}" alt="User picture">
+                <b>{{ review.user.username }}</b> rated it {{ review.stars_given }} stars  <span class="fw-lighter ms-3"> {{review.create_at| date:"M d, Y"}}</span>
+
+
+            </div>
+            <div class="card-body">
+                <p>{{review.comment | truncatechars:300 }}</p>
+                <span class="m-auto my-1 d-flex justify-content-center align-item-center" >
+                    <img class="cover-pic" src="{{ review.book.cover_picture.url }}" alt="Book Picture" >
+                </span>
+            </div>
+            <div class="card-footer">
+                <a class="book-name" href="{% url 'detail'  review.book.id %}" >{{ review.book.title }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+<nav class="ms-4">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class=" mx-1 btn btn-primary"><a style="text-decoration: none;" class="text-white" href="?page=1">&laquo;
+                first</a></li>
+        <li class=" mx-1 btn btn-primary "> <a style="text-decoration: none;" class="text-white"
+                href="?page={{ page_obj.previous_page_number }}">previous</a> </li>
+        {% endif %}
+
+        <li class=" btn btn-secondary">
+            <a style="text-decoration: none;" href="#" class="text-white mx-1">{{ page_obj.number }}</a>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class=" mx-1 btn btn-primary"><a style="text-decoration: none;" class="text-white"
+                href="?page={{ page_obj.next_page_number }}"> next</a></li>
+        <li class=" mx-1 btn btn-primary"> <a style="text-decoration: none;" class="text-white"
+                href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a> </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% endblock content %}

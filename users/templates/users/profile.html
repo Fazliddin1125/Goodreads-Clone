@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<!-- <h1>Profile</h1>
+<div class="card w-50 my-4"  >
+    <div class="card-header p-0">
+        <div class="card-img">
+            <img class="card-img" src="{{ user.profile_picture.url }}" alt="Profile Picture">
+        </div>
+    </div>
+   <div class="card-body">
+        <p>Username: {{user.username}}</p>
+<p>First Name: {{user.first_name}}</p>
+<p>Last Name: {{user.last_name}}</p>
+<p>Email: {{user.email}}</p>
+<br>
+   </div>
+    <div class="card-footer" >
+        <a href="{% url 'edit' %}" ><button class="btn btn-secondary" >Edit Profile</button></a>
+    </div>
+
+</div> -->
+
+<div class=" w-60 mt-5 mb-5 d-flex justify-content-center">
+    <div  style="width: 60%;" class="card  rounded">
+        <div class=" w-60 d-block justify-content-center">
+            <div class="area1 p-3 py-2"> </div>
+            <div class="area2 p- text-center px-3">
+                <div class="image mr-3 "> <img src="{{ user.profile_picture.url }}" class="rounded" style="width: 50%" />
+                    <h4 class=" name mt-3 ">{{ user.first_name|title }} {{ user.last_name|title }}</h4>
+                    <p class="information mt-3 text-justify">
+                       <a href="{% url 'edit' %}" ><button class="btn btn-primary" >Edit</button></a>
+                         </p>
+                    <div class="d-flex justify-content-center mt-5">
+                        <ul class="list-icons w-100 ">
+                            <div class="list-group w-50 m-auto ">
+                                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                    {{ user.username}}
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">{{  user.first_name|title }}</a>
+                                <a href="#" class="list-group-item list-group-item-action">{{  user.last_name|title }}</a>
+                                <a href="#" class="list-group-item list-group-item-action">{{  user.email }}</a>
+                                <a  class="list-group-item list-group-item-action ">{{  user.date_joined |date:"M d, Y" }}</a>
+                              </div>
+                        </ul>
+                    </div>
+                </div>
+                <div> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
